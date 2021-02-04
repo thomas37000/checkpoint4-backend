@@ -1,5 +1,5 @@
 const express = require('express');
-const connection = require('../config/config');
+const connection = require('../../config/config');
 
 const router = express.Router();
 
@@ -19,7 +19,6 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   connection.query(
     'SELECT * FROM project WHERE idproject = ?',
-    //"SELECT * FROM project a JOIN projectVinyle av ON a.idproject = av.projectID JOIN vinyles v ON av.vinyleID = a.iddiscographie",
     [req.params.id],
     (err, results) => {
       if (err) {
@@ -33,6 +32,7 @@ router.get('/:id', (req, res) => {
   );
 });
 
+/*** err 500 ***/
 router.post('/', (req, res) => {
   const { date, description, links, name, pictures } = req.body;
   connection.query(
@@ -48,21 +48,22 @@ router.post('/', (req, res) => {
   );
 });
 
-router.put('/:id', (req, res) => {
-  const idProject = req.params.id;
-  const { date, description, links, name, pictures } = req.body;
-  connection.query(
-    `UPDATE project SET date = ?, description = ?, links = ?, pictures = ?, name = ?, pictures = ? WHERE idproject = ?`,
-    [date, description, links, name, pictures, idProject],
-    (error, result) => {
-      if (error) {
-        res.status(500).json({ errorMessage: error.message });
-      } else {
-        res.status(200).json({ result });
-      }
-    }
-  );
-});
+/*** ne marche pas ***/
+// router.put('/:id', (req, res) => {
+//   const idProject = req.params.id;
+//   const { date, description, links, name, pictures } = req.body;
+//   connection.query(
+//     `UPDATE project SET date = ?, description = ?, links = ?, pictures = ?, name = ?, pictures = ? WHERE idproject = ?`,
+//     [date, description, links, name, pictures, idProject],
+//     (error, result) => {
+//       if (error) {
+//         res.status(500).json({ errorMessage: error.message });
+//       } else {
+//         res.status(200).json({ result });
+//       }
+//     }
+//   );
+// });
 
 router.delete('/:id', (req, res) => {
   const idProject = req.params.id;

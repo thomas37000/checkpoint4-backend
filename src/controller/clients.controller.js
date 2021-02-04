@@ -1,5 +1,5 @@
 const express = require('express');
-const connection = require('../config/config');
+const connection = require('../../config/config');
 
 const router = express.Router();
 
@@ -19,7 +19,6 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   connection.query(
     'SELECT * FROM client WHERE idclient = ?',
-    //"SELECT * FROM client a JOIN clientVinyle av ON a.idclient = av.clientID JOIN vinyles v ON av.vinyleID = a.iddiscographie",
     [req.params.id],
     (err, results) => {
       if (err) {
@@ -33,6 +32,7 @@ router.get('/:id', (req, res) => {
   );
 });
 
+/*** err 500 ***/
 router.post('/', (req, res) => {
   const { name, logo } = req.body;
   connection.query(
@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
     [name, logo],
     (err) => {
       if (err) {
-        res.status(500).send('clieny non enregistré!');
+        res.status(500).send('client non enregistré!');
       } else {
         res.status(201).send('le client a bien était enregistré');
       }
@@ -48,21 +48,22 @@ router.post('/', (req, res) => {
   );
 });
 
-router.put('/:id', (req, res) => {
-  const idclient = req.params.id;
-  const { name, logo } = req.body;
-  connection.query(
-    `UPDATE client SET name = ?, logo = ? WHERE idclient = ?`,
-    [name, logo, idclient],
-    (error, result) => {
-      if (error) {
-        res.status(500).json({ errorMessage: error.message });
-      } else {
-        res.status(200).json({ result });
-      }
-    }
-  );
-});
+/*** ne marche pas ***/
+// router.put('/:id', (req, res) => {
+//   const idclient = req.params.id;
+//   const { name, logo } = req.body;
+//   connection.query(
+//     `UPDATE client SET name = ?, logo = ? WHERE idclient = ?`,
+//     [name, logo, idclient],
+//     (error, result) => {
+//       if (error) {
+//         res.status(500).json({ errorMessage: error.message });
+//       } else {
+//         res.status(200).json({ result });
+//       }
+//     }
+//   );
+// });
 
 router.delete('/:id', (req, res) => {
   const idclient = req.params.id;

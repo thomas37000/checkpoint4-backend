@@ -19,7 +19,6 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   connection.query(
     'SELECT * FROM admin WHERE idadmin = ?',
-    //"SELECT * FROM admin a JOIN adminVinyle av ON a.idadmin = av.adminID JOIN vinyles v ON av.vinyleID = a.iddiscographie",
     [req.params.id],
     (err, results) => {
       if (err) {
@@ -33,6 +32,7 @@ router.get('/:id', (req, res) => {
   );
 });
 
+/*** err 500 ***/
 router.post('/', (req, res) => {
   const {
     date,
@@ -58,21 +58,22 @@ router.post('/', (req, res) => {
   );
 });
 
-router.put('/:id', (req, res) => {
-  const idadmin = req.params.id;
-  const { date, description, firstname, email, lastname, links, pictures, password } = req.body;
-  connection.query(
-    `UPDATE admin SET date = ?, description = ?, firstname = ?, email = ?, lastname = ?, links = ?, pictures = ?, password= ? WHERE idadmin = ?`,
-    [date, description, firstname, email, lastname, links, pictures, password, idadmin],
-    (error, result) => {
-      if (error) {
-        res.status(500).json({ errorMessage: error.message });
-      } else {
-        res.status(200).json({ result });
-      }
-    }
-  );
-});
+/*** ne marche pas ***/
+// router.put('/:id', (req, res) => {
+//   const idadmin = req.params.id;
+//   const { date, description, firstname, email, lastname, links, pictures, password } = req.body;
+//   connection.query(
+//     `UPDATE admin SET date = ?, description = ?, firstname = ?, email = ?, lastname = ?, links = ?, pictures = ?, password= ? WHERE idadmin = ?`,
+//     [date, description, firstname, email, lastname, links, pictures, password, idadmin],
+//     (error, result) => {
+//       if (error) {
+//         res.status(500).json({ errorMessage: error.message });
+//       } else {
+//         res.status(200).json({ result });
+//       }
+//     }
+//   );
+// });
 
 router.delete('/:id', (req, res) => {
   const idAdmin = req.params.id;
