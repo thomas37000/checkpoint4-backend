@@ -38,8 +38,8 @@ router.post('/', (req, res) => {
   connection.query(
     'INSERT INTO project(date, description, links, name, pictures) VALUES(?, ?, ?, ?, ?)',
     [date, description, links, name, pictures],
-    (err) => {
-      if (err) {
+    (error) => {
+      if (error) {
         res.status(500).json({ errorMessage: error.message });
       } else {
         res.status(201).send('Le projet a bien était enregistré');

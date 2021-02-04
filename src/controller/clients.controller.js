@@ -38,15 +38,16 @@ router.post('/', (req, res) => {
   connection.query(
     'INSERT INTO client(name, logo) VALUES(?, ?)',
     [name, logo],
-    (err) => {
-      if (err) {
-        res.status(500).send('client non enregistré!');
+    (error) => {
+      if (error) {
+        res.status(500).json({ errorMessage: error.message });
       } else {
         res.status(201).send('le client a bien était enregistré');
       }
     }
   );
 });
+
 
 /*** ne marche pas ***/
 // router.put('/:id', (req, res) => {

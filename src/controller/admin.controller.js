@@ -47,8 +47,8 @@ router.post('/', (req, res) => {
   connection.query(
     'INSERT INTO admin(date, description, firstname, email, lastname, links, pictures, password) VALUES(?, ?, ?, ?, ?, ?, ?, ?)',
     [date, description, firstname,email , lastname, links, pictures, password],
-    (err) => {
-      if (err) {
+    (error) => {
+      if (error) {
         res.status(500).json({ errorMessage: error.message });
         // res.status(500).send('admin non enregistré!');
       } else {

@@ -38,9 +38,9 @@ router.post('/', (req, res) => {
   connection.query(
     'INSERT INTO techno(name, logo) VALUES(?, ?)',
     [name, logo],
-    (err) => {
-      if (err) {
-        res.status(500).send('techno non enregistrée!');
+    (error) => {
+      if (error) {
+        res.status(500).json({ errorMessage: error.message });
       } else {
         res.status(201).send('La techno a bien était enregistrée');
       }

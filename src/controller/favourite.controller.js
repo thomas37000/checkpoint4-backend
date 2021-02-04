@@ -38,9 +38,9 @@ router.post('/', (req, res) => {
   connection.query(
     'INSERT INTO favourite(name, pictures) VALUES(?, ?)',
     [name, pictures],
-    (err) => {
-      if (err) {
-        res.status(500).send('favoris non enregistré!');
+    (error) => {
+      if (error) {
+        res.status(500).json({ errorMessage: error.message });
       } else {
         res.status(201).send('Vos favoris ont bien était enregistré');
       }
