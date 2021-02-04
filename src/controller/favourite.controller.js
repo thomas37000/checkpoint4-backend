@@ -1,10 +1,10 @@
 const express = require('express');
-const connection = require('../config');
+const connection = require('../config/config');
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  connection.query('SELECT * from favourite', (err, results) => {
+  connection.query('SELECT * from favourite ORDER BY name ASC', (err, results) => {
     if (err) {
       console.log(err);
       res.status(500).json(err);

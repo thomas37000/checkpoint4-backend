@@ -1,5 +1,5 @@
 const express = require('express');
-const connection = require('../config');
+const connection = require('../../config/config');
 
 const router = express.Router();
 
@@ -49,7 +49,8 @@ router.post('/', (req, res) => {
     [date, description, firstname,email , lastname, links, pictures, password],
     (err) => {
       if (err) {
-        res.status(500).send('admin non enregistré!');
+        res.status(500).json({ errorMessage: error.message });
+        // res.status(500).send('admin non enregistré!');
       } else {
         res.status(201).send('Vous êtes bien enregistré');
       }

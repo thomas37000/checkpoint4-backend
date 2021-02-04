@@ -1,5 +1,5 @@
 const express = require('express');
-const connection = require('../config');
+const connection = require('../config/config');
 
 const router = express.Router();
 
@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
     [date, description, links, name, pictures],
     (err) => {
       if (err) {
-        res.status(500).send('projet non enregistré!');
+        res.status(500).json({ errorMessage: error.message });
       } else {
         res.status(201).send('Le projet a bien était enregistré');
       }
