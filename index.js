@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
-const port = 8080;
+const PORT = 8080;
 const adminRouter = require("./src/controller/admin.controller");
 const clientsRouter = require("./src/controller/clients.controller");
 const favouriteRouter = require("./src/controller/favourite.controller");
@@ -17,10 +17,10 @@ app.use("/favourite", favouriteRouter);
 app.use("/projects", projectsRouter);
 app.use("/technos", technosRouter);
 
-app.listen(port, (err) => {
+app.listen(PORT, (err) => {
   if (err) {
     console.error(err);
   } else {
-    console.log(`Express server listening on ${port}`);
+    console.log(`Express server listening on ${PORT}`);
   }
 });
